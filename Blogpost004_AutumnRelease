@@ -1,0 +1,161 @@
+# MIMIQ's Latest Upgrades: Advancing Quantum Computing Simulations
+
+February 2025
+Contribution from Vase Moeini
+Software Engineer at QPerfect
+
+As quantum computing continues to evolve, the need for robust, realistic, and user-friendly simulation tools has never been greater. At QPerfect, we are committed to equipping researchers, developers, and industry leaders with the resources they need to push the boundaries of quantum technology. The latest MIMIQ upgrade introduces a host of groundbreaking features designed to bridge the gap between theoretical advancements and practical applications.
+
+## What’s New?
+
+- Updated documentation
+- Operators (non-unitary)
+- Noise channels and noise modeling
+- Expectation values
+- Entanglement measures
+- Amplitude Operation
+- Batch execution of circuits
+- Stim file support
+- New measurement and reset operations
+- Performance improvements of Backend (MPS & StateVector)
+
+## Updated Documentation with Tips
+
+Our documentation has been completely revamped! We have now written an extensive Manual with lots of examples, information on all new features, and tips on how to make the most out of MIMIQ. You can find the new documentation, for both Julia and Python APIs at [Documentation](https://docs.qperfect.io). If you already have access to MIMIQ, we encourage you to try running the Quickstart code yourself!
+
+
+## Operators: the Gateway to Advanced Features
+
+While gates in quantum computing must be unitary, it is common to use more general operators that don't fulfill unitarity in order to model more general operations such as noise, or to extract information about the quantum state through, e.g., expectation values (see below).
+
+To simplify this process, we have introduced in MIMIQ the ability to define arbitrary operators.
+In MIMIQ, you can define custom operators (through `Operator`) or use a pre-defined one from our library (e.g. `SigmaPlus` or `Projector0`).
+See below for examples, or check our Operator documentation ([Operators in Python](https://docs.qperfect.io/mimiqcircuits-python/manual/non_unitary_ops.html), [Operators in Julia](https://docs.qperfect.io/MimiqCircuits.jl/stable/manual/non_unitary_ops/#operators-available-in-mimiq)).
+
+
+## Noise Channels: Bringing Realism to Quantum Simulations
+
+Real quantum computers are imperfect. They are subject to all sorts of noise due to their interaction with the environment. Understanding and modeling noise is thus crucial to building robust quantum algorithms and hardware that can perform reliably in real-world conditions.
+
+Noise in quantum systems is modeled using the density matrix formalism, which provides a comprehensive way to describe mixed quantum states.
+In quantum computing, noise is usually modeled using noisy quantum channels, which in the **Kraus representation** act as follows:
+
+```math
+\mathcal{E}(\rho) = \sum_k E_k \rho E_k^\dagger
+```
+
+Here, $\rho$ is the density matrix, and $E_k$ are the Kraus operators that represent specific noise processes.
+
+### Example
+
+In MIMIQ, you can create custom noise channels (using `Kraus` or `MixedUnitary`) or use a pre-defined channel from our library (e.g. `AmplitudeDamping`, `PhaseAmplitudeDamping`, or `Depolarizing`). To add noise channels to your circuit you can simply add them like gates, or use `add_noise` to add it globally to all gates of a certain type:
+
+```python
+# Add noise one by one
+c.push(AmplitudeDamping(0.1), 0)
+
+# Add noise to all CX gates in the circuit
+c.add_noise(GateCX(), Depolarizing2(0.05))
+```
+
+For more examples and a description of all the noise functionality, check out the Noise section of the Documentation ([Noise in Python](https://docs.qperfect.io/mimiqcircuits-python/manual/noise.html#), [Noise in Julia](https://docs.qperfect.io/MimiqCircuits.jl/stable/manual/noise/)).
+
+## Z-Register: Simplified Data Retrieval in MIMIQ
+
+The Z-Register in MIMIQ provides a dedicated mechanism for retrieving complex-valued data from the simulator. This is useful for calculating and storing observables such as state amplitudes (`Amplitude`), expectation values (`ExpectationValue`) or entanglement measures (e.g. `VonNeumannEntropy`).
+
+
+## Expectation Values: Unlocking the Power of Quantum Analysis
+
+While a quantum computer needs to collect thousands of samples to estimate the value of an observable, with a simulator such as MIMIQ we can compute expectation values directly from the quantum state (mathematically, $\langle A \rangle = \langle \psi | A | \psi \rangle$). This constitutes a fundamental tool of researchers to deeper understand the behavior of quantum circuits.
+
+With MIMIQ you can now efficiently compute expectation values of arbitrary operators (see above) at any point in the circuit. The results are stored in and can be easily retrieved from the newly introduced Z-register, which is basically a vector of complex numbers.
+
+### Example
+
+The `ExpectationValue` operation in MIMIQ supports arbitrary single-qubit and two-qubit operators, as well as multi-qubit Pauli strings (`PauliString`). The latter can be useful to compute expectation values of Hamiltonians, e.g. for variational algorithms.
+To compute an `ExpectationValue` we add it to the circuit the same way as gates:
+
+```python
+# Compute 1-qubit expectation value and store in Z-register 0
+c.push(ExpectationValue(SigmaPlus()), 1, 0)
+
+# Compute 4-qubit expectation value and store in Z-register 1
+c.push(ExpectationValue(PauliString("IXYZ")),0,1,2,3,1)
+```
+
+We refer to the corresponding page in the documentation for more information ([Expectation Value in Python](https://docs.qperfect.io/mimiqcircuits-python/manual/statistical_ops.html#expectation-value), [Expectation Value in Julia](https://docs.qperfect.io/MimiqCircuits.jl/stable/manual/statistical_ops/#expectation-value)).
+
+## Entanglement Measures: Unlocking the Heart of Quantum Correlations (Special for MPS)
+
+Entanglement is an essential feature of quantum systems that quantifies the intricate and non-classical correlations between qubits, and helps researchers understand the complexity of quantum circuits.
+MIMIQ now provides powerful tools to calculate different types of bipartite entanglement present in the system. Specifically:
+
+- **Bond Dimension**
+- **Schmidt Rank**
+- **Von Neumann Entropy**
+
+### Example
+
+Entanglement can be computed at any point in the circuit by adding the corresponding operation as we do with gates, and the results are stored in the Z-register.
+
+```python
+# Compute entanglement and store in Z-register 0
+c.push(VonNeumannEntropy(), 2, 0)
+c.push(BondDim(), 1, 0)
+c.push(SchmidtRank(), 0, 0)
+```
+
+For more information please check out the documentation ([Entanglement in Python](https://docs.qperfect.io/mimiqcircuits-python/manual/statistical_ops.html#entanglement), [Entanglement in Julia](https://docs.qperfect.io/MimiqCircuits.jl/stable/manual/statistical_ops/#entanglement)).
+
+## Amplitude Operation
+
+A quantum state can be represented as a superposition of basis states $|x\rangle$ with complex-valued amplitudes $c_x$:
+
+```math
+|\psi\rangle = \sum_{x} c_x |x\rangle
+```
+
+In MIMIQ, you can now access the values of the amplitudes $c_x$ in the computational basis at any point in the circuit using the `Amplitude` operation. This allows access to the full information of the state.
+
+### Example
+
+To obtain an amplitude, we simply specify the basis state we're interested in (using `BitString`) and then add the operation to the circuit just like a gate. The result will be stored in the Z-register.
+
+```python
+basis_state = BitString("000")
+c.push(Amplitude(basis_state), 0)
+```
+
+Find out more about this operation in the documentation ([Amplitude in Python](https://docs.qperfect.io/mimiqcircuits-python/manual/statistical_ops.html#amplitude), [Amplitude in Julia](https://docs.qperfect.io/MimiqCircuits.jl/stable/manual/statistical_ops/#amplitude)).
+
+## Batch Mode Execution: Streamlined Efficiency
+
+MIMIQ now supports batch execution of circuits, which enables users to execute multiple quantum circuits in a single job. This feature significantly enhances efficiency by reducing overhead associated with cloud service execution. 
+
+### Example
+
+```python
+# Sends circuits c1, c2, c3... for execution
+conn = MimiqConnection()
+job = conn.execute([c1, c2, c3, ...])
+```
+
+For more information, please refer to the Execution ([Python](https://docs.qperfect.io/mimiqcircuits-python/manual/remote_execution.html#execution), [Julia](https://docs.qperfect.io/MimiqCircuits.jl/stable/manual/remote_execution/#Execution)) section of the documentation
+
+## Stim Integration: Enhanced Support for Quantum Error Correction
+
+MIMIQ now supports importing and simulating circuits in [Stim](https://github.com/quantumlib/Stim) format, which is a widely-used software package to simulate Clifford circuits used, e.g., in quantum error correction research.
+
+For this purpose, MIMIQ now contains a suite of new operations inspired by Stim such as annotations, which allow users to tag specific instructions or circuit sections. We have also introduced set of new measurement-type operations such as:
+
+- **Pair Measurements:** enable measuring correlations between qubits with operations like `MeasureZZ`, `MeasureXX`, and `MeasureYY`.
+- **Measurements in X, Y, Z bases:** using `MeasureX`,
+`MeasureY`, `MeasureZ`, `ResetX`, `ResetY`, or `ResetZ`.
+- **Combined Measure and Reset:** this family of operations (`MeasureResetX`, `MeasureResetY`, `MeasureResetZ`) performs both measurement and reset steps in a single operation.
+
+While the existing `Measure` and `Reset` operations in MIMIQ already allowed to perform all necessary measurement-like operations, the new features simplify the process and save the user time and effort.
+
+
+
+**[Contact us](https://qperfect.io/#contact)** to learn how MIMIQ can accelerate your quantum journey!
