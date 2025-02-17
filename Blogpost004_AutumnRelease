@@ -40,9 +40,9 @@ Real quantum computers are imperfect. They are subject to all sorts of noise due
 Noise in quantum systems is modeled using the density matrix formalism, which provides a comprehensive way to describe mixed quantum states.
 In quantum computing, noise is usually modeled using noisy quantum channels, which in the **Kraus representation** act as follows:
 
-```math
+$$
 \mathcal{E}(\rho) = \sum_k E_k \rho E_k^\dagger
-```
+$$
 
 Here, $\rho$ is the density matrix, and $E_k$ are the Kraus operators that represent specific noise processes.
 
@@ -108,9 +108,9 @@ For more information please check out the documentation ([Entanglement in Python
 
 A quantum state can be represented as a superposition of basis states $|x\rangle$ with complex-valued amplitudes $c_x$:
 
-```math
+$$
 |\psi\rangle = \sum_{x} c_x |x\rangle
-```
+$$
 
 In MIMIQ, you can now access the values of the amplitudes $c_x$ in the computational basis at any point in the circuit using the `Amplitude` operation. This allows access to the full information of the state.
 
