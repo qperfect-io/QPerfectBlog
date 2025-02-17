@@ -1,7 +1,7 @@
 # MIMIQ's Latest Upgrades: Advancing Quantum Computing Simulations
 
-February 2025
-Contribution from Vase Moeini
+February 2025\
+Contribution from Vase Moeini\
 Software Engineer at QPerfect
 
 As quantum computing continues to evolve, the need for robust, realistic, and user-friendly simulation tools has never been greater. At QPerfect, we are committed to equipping researchers, developers, and industry leaders with the resources they need to push the boundaries of quantum technology. The latest MIMIQ upgrade introduces a host of groundbreaking features designed to bridge the gap between theoretical advancements and practical applications.
@@ -59,10 +59,6 @@ c.add_noise(GateCX(), Depolarizing2(0.05))
 ```
 
 For more examples and a description of all the noise functionality, check out the Noise section of the Documentation ([Noise in Python](https://docs.qperfect.io/mimiqcircuits-python/manual/noise.html#), [Noise in Julia](https://docs.qperfect.io/MimiqCircuits.jl/stable/manual/noise/)).
-
-## Z-Register: Simplified Data Retrieval in MIMIQ
-
-The Z-Register in MIMIQ provides a dedicated mechanism for retrieving complex-valued data from the simulator. This is useful for calculating and storing observables such as state amplitudes (`Amplitude`), expectation values (`ExpectationValue`) or entanglement measures (e.g. `VonNeumannEntropy`).
 
 
 ## Expectation Values: Unlocking the Power of Quantum Analysis
