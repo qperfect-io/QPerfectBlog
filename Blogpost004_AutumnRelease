@@ -1,12 +1,26 @@
-# MIMIQ's Latest Upgrades: Advancing Quantum Computing Simulations
+# MIMIQ Upgrade: Faster, and More Powerful!
 
 *February 2025*\
 *Contribution from Vase Moeini*\
 *Software Engineer at QPerfect*
 
-As quantum computing continues to evolve, the need for robust, realistic, and user-friendly simulation tools has never been greater. At QPerfect, we are committed to equipping researchers, developers, and industry leaders with the resources they need to push the boundaries of quantum technology. The latest MIMIQ upgrade introduces a host of groundbreaking features designed to bridge the gap between theoretical advancements and practical applications.
+Quantum computing is evolving at an unprecedented pace, and the need for robust, realistic, and user-friendly simulation tools has never been greater.
+At QPerfect, we are committed to equipping researchers, developers, and industry leaders with the resources they need to push the boundaries of quantum technology.
+The latest MIMIQ upgrade introduces a host of groundbreaking features designed to bridge the gap between theoretical advancements and practical applications.
 
 ## What’s New?
+
+Revamped documentation with in-depth examples and expert tips
+✅ Support for non-unitary operators for advanced modeling
+✅ Noise channels & realistic quantum noise simulation
+✅ Expectation value calculations for precise quantum insights
+✅ Entanglement measures for deeper system analysis
+✅ Amplitude operations for full state extraction
+✅ Batch execution for efficient quantum workflows
+✅ Stim file support for quantum error correction research
+✅ Enhanced measurement & reset operations
+✅ Performance upgrades for MPS & StateVector backends
+
 
 - Updated documentation
 - Operators (non-unitary)
@@ -21,8 +35,10 @@ As quantum computing continues to evolve, the need for robust, realistic, and us
 
 ## Updated Documentation with Tips
 
-Our documentation has been completely revamped! We have now written an extensive Manual with lots of examples, information on all new features, and tips on how to make the most out of MIMIQ. You can find the new documentation, for both Julia and Python APIs at [Documentation](https://docs.qperfect.io). If you already have access to MIMIQ, we encourage you to try running the Quickstart code yourself!
-
+Our documentation has been completely revamped!
+We have now written an extensive Manual with lots of examples, information on all new features, and tips on how to make the most out of MIMIQ.
+You can find the new documentation, for both Julia and Python APIs at [Documentation](https://docs.qperfect.io).
+If you already have access to MIMIQ, we encourage you to try running the Quickstart code yourself!
 
 ## Operators: the Gateway to Advanced Features
 
@@ -87,9 +103,9 @@ We refer to the corresponding page in the documentation for more information ([E
 Entanglement is an essential feature of quantum systems that quantifies the intricate and non-classical correlations between qubits, and helps researchers understand the complexity of quantum circuits.
 MIMIQ now provides powerful tools to calculate different types of bipartite entanglement present in the system. Specifically:
 
-- **Bond Dimension**
-- **Schmidt Rank**
-- **Von Neumann Entropy**
+- Bond Dimension
+- Schmidt Rank
+- Von Neumann Entropy
 
 ### Example
 
@@ -145,10 +161,10 @@ MIMIQ now supports importing and simulating circuits in [Stim](https://github.co
 
 For this purpose, MIMIQ now contains a suite of new operations inspired by Stim such as annotations, which allow users to tag specific instructions or circuit sections. We have also introduced set of new measurement-type operations such as:
 
-- **Pair Measurements:** enable measuring correlations between qubits with operations like `MeasureZZ`, `MeasureXX`, and `MeasureYY`.
-- **Measurements in X, Y, Z bases:** using `MeasureX`,
+- Pair Measurements: enable measuring correlations between qubits with operations like `MeasureZZ`, `MeasureXX`, and `MeasureYY`.
+- Measurements in X, Y, Z bases: using `MeasureX`,
 `MeasureY`, `MeasureZ`, `ResetX`, `ResetY`, or `ResetZ`.
-- **Combined Measure and Reset:** this family of operations (`MeasureResetX`, `MeasureResetY`, `MeasureResetZ`) performs both measurement and reset steps in a single operation.
+- Combined Measure and Reset: this family of operations (`MeasureResetX`, `MeasureResetY`, `MeasureResetZ`) performs both measurement and reset steps in a single operation.
 
 While the existing `Measure` and `Reset` operations in MIMIQ already allowed to perform all necessary measurement-like operations, the new features simplify the process and save the user time and effort.
 
