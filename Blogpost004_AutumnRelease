@@ -10,48 +10,37 @@ The latest MIMIQ upgrade introduces a host of groundbreaking features designed t
 
 ## What’s New?
 
-Revamped documentation with in-depth examples and expert tips
-✅ Support for non-unitary operators for advanced modeling
-✅ Noise channels & realistic quantum noise simulation
-✅ Expectation value calculations for precise quantum insights
-✅ Entanglement measures for deeper system analysis
-✅ Amplitude operations for full state extraction
-✅ Batch execution for efficient quantum workflows
-✅ Stim file support for quantum error correction research
-✅ Enhanced measurement & reset operations
+✅ Revamped documentation with in-depth examples and expert tips\
+✅ Support for non-unitary operators for advanced features\
+✅ Noise channels for realistic quantum noise simulation\
+✅ Expectation value calculations for precise quantum insights\
+✅ Entanglement measures for deeper system analysis\
+✅ Amplitude operations for full state extraction\
+✅ Batch execution for efficient quantum workflows\
+✅ Stim file support for quantum error correction research\
+✅ Additional measurement & reset operations\
 ✅ Performance upgrades for MPS & StateVector backends
-
-
-- Updated documentation
-- Operators (non-unitary)
-- Noise channels and noise modeling
-- Expectation values
-- Entanglement measures
-- Amplitude Operation
-- Batch execution of circuits
-- Stim file support
-- New measurement and reset operations
-- Performance improvements of Backend (MPS & StateVector)
 
 ## Updated Documentation with Tips
 
-Our documentation has been completely revamped!
-We have now written an extensive Manual with lots of examples, information on all new features, and tips on how to make the most out of MIMIQ.
+We’ve completely revamped our documentation to make it easier than ever to explore MIMIQ’s full potential.
+Our new manual is packed with step-by-step guides, detailed explanations, and expert insights to help you hit the ground running.
 You can find the new documentation, for both Julia and Python APIs at [Documentation](https://docs.qperfect.io).
 If you already have access to MIMIQ, we encourage you to try running the Quickstart code yourself!
 
-## Operators: the Gateway to Advanced Features
+## Operators: The Gateway to Advanced Features
 
 While gates in quantum computing must be unitary, it is common to use more general operators that don't fulfill unitarity in order to model more general operations such as noise, or to extract information about the quantum state through, e.g., expectation values (see below).
 
-To simplify this process, we have introduced in MIMIQ the ability to define arbitrary operators.
-In MIMIQ, you can define custom operators (through `Operator`) or use a pre-defined one from our library (e.g. `SigmaPlus` or `Projector0`).
-See below for examples, or check our Operator documentation ([Operators in Python](https://docs.qperfect.io/mimiqcircuits-python/manual/non_unitary_ops.html), [Operators in Julia](https://docs.qperfect.io/MimiqCircuits.jl/stable/manual/non_unitary_ops/#operators-available-in-mimiq)).
+With MIMIQ, you can now define custom operators (through `Operator`) or leverage pre-built ones from our extensive library (e.g. `SigmaPlus` and `Projector0`).
+See below for examples, or check our Operator documentation ([Operators in Python](https://docs.qperfect.io/mimiqcircuits-python/manual/non_unitary_ops.html),
+[Operators in Julia](https://docs.qperfect.io/MimiqCircuits.jl/stable/manual/non_unitary_ops/#operators-available-in-mimiq)).
 
+## Noise Channels: Bringing Realism to Simulations
 
-## Noise Channels: Bringing Realism to Quantum Simulations
-
-Real quantum computers are imperfect. They are subject to all sorts of noise due to their interaction with the environment. Understanding and modeling noise is thus crucial to building robust quantum algorithms and hardware that can perform reliably in real-world conditions.
+Real quantum computers are not perfect—they interact with their environment, inevitably leading to noise.
+To build robust quantum algorithms for real-world hardware, it’s thus crucial to model these imperfections.
+MIMIQ now supports simulations with noise.
 
 Noise in quantum systems is modeled using the density matrix formalism, which provides a comprehensive way to describe mixed quantum states.
 In quantum computing, noise is usually modeled using noisy quantum channels, which in the **Kraus representation** act as follows:
@@ -62,9 +51,11 @@ $$
 
 Here, $\rho$ is the density matrix, and $E_k$ are the Kraus operators that represent specific noise processes.
 
+With MIMIQ, you can now create custom noise channels (using `Kraus` or `MixedUnitary`) or use a pre-defined channel from our library (e.g. `AmplitudeDamping`, `PhaseAmplitudeDamping`, or `Depolarizing`).
+
 ### Example
 
-In MIMIQ, you can create custom noise channels (using `Kraus` or `MixedUnitary`) or use a pre-defined channel from our library (e.g. `AmplitudeDamping`, `PhaseAmplitudeDamping`, or `Depolarizing`). To add noise channels to your circuit you can simply add them like gates, or use `add_noise` to add it globally to all gates of a certain type:
+To add noise channels to your circuit you can simply add them like gates, or use `add_noise` to add it globally to all gates of a certain type:
 
 ```python
 # Add noise one by one
@@ -79,9 +70,11 @@ For more examples and a description of all the noise functionality, check out th
 
 ## Expectation Values: Unlocking the Power of Quantum Analysis
 
-While a quantum computer needs to collect thousands of samples to estimate the value of an observable, with a simulator such as MIMIQ we can compute expectation values directly from the quantum state (mathematically, $\langle A \rangle = \langle \psi | A | \psi \rangle$). This constitutes a fundamental tool of researchers to deeper understand the behavior of quantum circuits.
+While a quantum computer needs to collect thousands of samples to estimate the value of an observable, with a simulator such as MIMIQ we can compute expectation values directly from the quantum state (mathematically, $\langle A \rangle = \langle \psi | A | \psi \rangle$).
+This constitutes a fundamental tool of researchers to deeper understand the behavior of quantum circuits.
 
-With MIMIQ you can now efficiently compute expectation values of arbitrary operators (see above) at any point in the circuit. The results are stored in and can be easily retrieved from the newly introduced Z-register, which is basically a vector of complex numbers.
+With MIMIQ you can now efficiently compute expectation values of arbitrary operators (see above) at any point in the circuit.
+The results are stored in and can be easily retrieved from the newly introduced Z-register, which is basically a vector of complex numbers.
 
 ### Example
 
@@ -100,12 +93,14 @@ We refer to the corresponding page in the documentation for more information ([E
 
 ## Entanglement Measures: Unlocking the Heart of Quantum Correlations (Special for MPS)
 
-Entanglement is an essential feature of quantum systems that quantifies the intricate and non-classical correlations between qubits, and helps researchers understand the complexity of quantum circuits.
-MIMIQ now provides powerful tools to calculate different types of bipartite entanglement present in the system. Specifically:
+Entanglement is a cornerstone of quantum mechanics, and now, MIMIQ provides dedicated tools to measure and analyze it.
+To gain insight into the intricate correlations of qubits, MIMIQ now allows to compute different forms of bipartite entanglement such as:
 
-- Bond Dimension
-- Schmidt Rank
-- Von Neumann Entropy
+✅ Bond Dimension
+✅ Schmidt Rank
+✅ Von Neumann Entropy
+
+These entanglement measures helps researchers understand the complexity of quantum circuits.
 
 ### Example
 
@@ -120,15 +115,12 @@ c.push(SchmidtRank(), 0, 0)
 
 For more information please check out the documentation ([Entanglement in Python](https://docs.qperfect.io/mimiqcircuits-python/manual/statistical_ops.html#entanglement), [Entanglement in Julia](https://docs.qperfect.io/MimiqCircuits.jl/stable/manual/statistical_ops/#entanglement)).
 
-## Amplitude Operation
+## Amplitude Operations: Full Access to Quantum States
 
-A quantum state can be represented as a superposition of basis states $|x\rangle$ with complex-valued amplitudes $c_x$:
-
-$$
-|\psi\rangle = \sum_{x} c_x |x\rangle
-$$
-
-In MIMIQ, you can now access the values of the amplitudes $c_x$ in the computational basis at any point in the circuit using the `Amplitude` operation. This allows access to the full information of the state.
+Need to extract full quantum state information? MIMIQ now allows you to access state amplitudes at any point in the circuit.
+This means that if we represent the state as $|\psi\rangle = \sum_{x} c_x |x\rangle$ using the computational basis $|x\rangle$,
+with MIMIQ, you now have direct access to the complex-valued amplitudes $c_x$. Importantly, you can extract this information
+for both the StateVector and the MPS engines.
 
 ### Example
 
@@ -143,7 +135,8 @@ Find out more about this operation in the documentation ([Amplitude in Python](h
 
 ## Batch Mode Execution: Streamlined Efficiency
 
-MIMIQ now supports batch execution of circuits, which enables users to execute multiple quantum circuits in a single job. This feature significantly enhances efficiency by reducing overhead associated with cloud service execution. 
+MIMIQ now supports batch execution of circuits, which enables users to execute multiple quantum circuits in a single job.
+This feature significantly enhances efficiency by reducing overhead associated with cloud service execution. 
 
 ### Example
 
@@ -157,17 +150,17 @@ For more information, please refer to the Execution ([Python](https://docs.qperf
 
 ## Stim Integration: Enhanced Support for Quantum Error Correction
 
-MIMIQ now supports importing and simulating circuits in [Stim](https://github.com/quantumlib/Stim) format, which is a widely-used software package to simulate Clifford circuits used, e.g., in quantum error correction research.
+MIMIQ now supports importing and simulating circuits in [Stim](https://github.com/quantumlib/Stim) format.
+Stim is a widely used framework for simulating Clifford circuits with applications in quantum error correction research.
 
-For this purpose, MIMIQ now contains a suite of new operations inspired by Stim such as annotations, which allow users to tag specific instructions or circuit sections. We have also introduced set of new measurement-type operations such as:
+For this purpose, MIMIQ now contains a suite of new operations inspired by Stim such as annotations, which allow users to tag specific instructions or circuit sections.
+We have also introduced set of new measurement-type operations such as:
 
-- Pair Measurements: enable measuring correlations between qubits with operations like `MeasureZZ`, `MeasureXX`, and `MeasureYY`.
-- Measurements in X, Y, Z bases: using `MeasureX`,
-`MeasureY`, `MeasureZ`, `ResetX`, `ResetY`, or `ResetZ`.
-- Combined Measure and Reset: this family of operations (`MeasureResetX`, `MeasureResetY`, `MeasureResetZ`) performs both measurement and reset steps in a single operation.
+✅ Pair Measurements: Measure correlations between qubits with `MeasureZZ`, `MeasureXX`, `MeasureYY`
+✅ Rotated Measurements: Measure in X, Y, or Z basis with `MeasureX`, `MeasureY`, `MeasureZ`, `ResetX`, `ResetY`, or `ResetZ`.
+✅ Measure & Reset in One Step: MeasureResetX, MeasureResetY, MeasureResetZ streamline operations
 
 While the existing `Measure` and `Reset` operations in MIMIQ already allowed to perform all necessary measurement-like operations, the new features simplify the process and save the user time and effort.
-
 
 
 **[Contact us](https://qperfect.io/#contact)** to learn how MIMIQ can accelerate your quantum journey!
