@@ -10,11 +10,11 @@ The latest MIMIQ upgrade introduces a host of groundbreaking features designed t
 
 ## What’s New?
 
-✅ Revamped **documentation** with in-depth examples and expert tips\
-✅ Support for **non-unitary operators** for advanced features\
+✅ Revamped **documentation** with examples and expert tips\
+✅ **Non-unitary operators** for advanced features\
 ✅ **Noise** channels for realistic quantum noise simulation\
-✅ **Expectation value** calculations for precise quantum insights\
-✅ **Entanglement** measures for deeper system analysis\
+✅ **Expectation value** calculations\
+✅ **Entanglement** measures\
 ✅ **Amplitude** operations for full state extraction\
 ✅ **Batch execution** for efficient quantum workflows\
 ✅ **Stim** file support for quantum error correction research\
@@ -96,8 +96,8 @@ We refer to the corresponding page in the documentation for more information ([E
 Entanglement is a cornerstone of quantum mechanics, and now, MIMIQ provides dedicated tools to measure and analyze it.
 To gain insight into the intricate correlations of qubits, MIMIQ now allows to compute different forms of bipartite entanglement such as:
 
-✅ Bond Dimension
-✅ Schmidt Rank
+✅ Bond Dimension\
+✅ Schmidt Rank\
 ✅ Von Neumann Entropy
 
 These entanglement measures helps researchers understand the complexity of quantum circuits.
@@ -156,8 +156,8 @@ Stim is a widely used framework for simulating Clifford circuits with applicatio
 For this purpose, MIMIQ now contains a suite of new operations inspired by Stim such as annotations, which allow users to tag specific instructions or circuit sections.
 We have also introduced set of new measurement-type operations such as:
 
-✅ Pair Measurements: Measure correlations between qubits with `MeasureZZ`, `MeasureXX`, `MeasureYY`
-✅ Rotated Measurements: Measure in X, Y, or Z basis with `MeasureX`, `MeasureY`, `MeasureZ`, `ResetX`, `ResetY`, or `ResetZ`.
+✅ Pair Measurements: Measure correlations between qubits with `MeasureZZ`, `MeasureXX`, `MeasureYY`\
+✅ Rotated Measurements: Measure in X, Y, or Z basis with `MeasureX`, `MeasureY`, `MeasureZ`, `ResetX`, `ResetY`, or `ResetZ`.\
 ✅ Measure & Reset in One Step: MeasureResetX, MeasureResetY, MeasureResetZ streamline operations
 
 While the existing `Measure` and `Reset` operations in MIMIQ already allowed to perform all necessary measurement-like operations, the new features simplify the process and save the user time and effort.
